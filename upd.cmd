@@ -1,9 +1,11 @@
 @echo off
 color 0a
+echo ENTER COMMITMENT MESSAGE:
+set /P cmessage=
 echo ...
 echo.
 git add .
-git commit -m upd
+git commit -m %cmessage%
 git push
 echo.
 echo Commits pushed to repo
