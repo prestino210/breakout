@@ -11,3 +11,5 @@ git push
 echo.
 echo Commits pushed to repo
 pause
+start "" http://prestonwitzel.github.io
+exit
