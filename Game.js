@@ -14,6 +14,9 @@ export default class Game {
         this.bricksHeight = (1/this.rows)*(30/100)*this.screenHeight;
         this.input = new Input();
         this.paddle = new Paddle(this);
+        this.score = 0;
+        this.won = false;
+        this.lost = false;
 
         this.colors = ["red", "yellow", "green"];
 
@@ -30,19 +33,30 @@ export default class Game {
 
     update() { 
         this.bricks = this.bricks.filter((b) => !b.deleted);
-        if(!this.ball.gameOver) {
+        if(!this.lost && !this.won) {
             this.ball.update();
         }
         this.paddle.update();
     }
 
     draw(ctx) {
-        if(!this.ball.gameOver) {
+        if(!this.lost && !this.won) {
             this.ball.draw(ctx);
         }
         this.bricks.forEach((b) => {
             b.draw(ctx);
         });
         this.paddle.draw(ctx);
+
+        ctx.font = "Bold 40px serif"
+        if (this.won) { 
+            let text = ctx.measureText("You won!");
+            ctx.fillStyle = "rgb(0,0,255)"
+            ctx.fillText("You won!", (this.screenWidth/2) - (text.width/2), (this.screenHeight/2) - (40/2));
+        } else if(this.lost) { 
+            let text = ctx.measureText("Game over");
+            ctx.fillStyle = "rgb(255,0,0)"
+            ctx.fillText("Game over", (this.screenWidth/2) - (text.width/2), (this.screenHeight/2) - (40/2));
+        }
     }
 }

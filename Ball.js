@@ -1,3 +1,5 @@
+import Utils from "./Utils.js"
+
 export default class Ball {
     constructor(game) {
         this.game = game;
@@ -6,7 +8,7 @@ export default class Ball {
         this.x = game.screenWidth/2;
         this.y = game.screenHeight - ((1/3)*game.screenHeight);
         this.rad = 25;
-        this.speed = 10
+        this.speed = 6
         this.angle = Math.random()*360;
         this.dx = Math.cos(this.angle*(Math.PI/180))*this.speed;
         this.dy = Math.sin(this.angle*(Math.PI/180))*this.speed;
@@ -16,7 +18,16 @@ export default class Ball {
     }
 
     update() {
-        if(!this.restart) {
+
+        if(!this.restart) { //update
+
+            if(this.game.bricks.length == 0) {
+                this.game.won = true
+            }
+            if(this.gameOver) {
+                this.game.lost = true;
+            }
+
             this.x += this.dx;
             this.y += this.dy;
 
@@ -27,6 +38,25 @@ export default class Ball {
                 this.dy = -this.dy;
             }
 
+            this.game.bricks.forEach((b) => {
+                if(Utils.rect_circleCollision(b.x, b.y, b.width, b.height, this.x, this.y, this.rad)) {
+                    b.health--;
+                    if(b.health <= 0) {
+                        b.deleted = true;
+                        this.game.score += (2 - b.row) + 1;
+                        this.speed += .15
+                    }
+                    
+                    this.dy = -this.dy;
+                }
+            });
+
+            let pX = this.game.paddle.x; let pY = this.game.paddle.y; let pW = this.game.paddle.width; let pH = this.game.paddle.height;
+
+            if(Utils.rect_circleCollision(pX, pY, pW, pH, this.x, this.y, this.rad)) { 
+                this.dy = -this.dy;
+            }
+            
 
         } else {
             let currentTime = Date.now();
@@ -39,11 +69,12 @@ export default class Ball {
 
         if(this.y >= this.game.screenHeight) { 
             if(this.game.tries < 3) {
+                this.angle = Math.random()*360;
                 this.game.tries++;
                 this.x = this.game.screenWidth/2;
                 this.y = this.game.screenHeight - ((1/3)*this.game.screenHeight);
-                this.dx = Math.random()*30-15;
-                this.dy = Math.random()*-15;
+                this.dx = Math.cos(this.angle*(Math.PI/180))*this.speed;
+                this.dy = Math.sin(this.angle*(Math.PI/180))*this.speed;
                 this.restart = true;
                 this.timer = Date.now();
             } else if(this.game.tries == 3) {

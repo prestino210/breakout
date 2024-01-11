@@ -5,6 +5,7 @@ const ctx = Canv.getContext("2d")
 const WIDTH = Canv.width = window.innerWidth;
 const HEIGHT = Canv.height = window.innerHeight;
 const game = new Game(WIDTH, HEIGHT); 
+const FPS = 60;
 
 function GameLoop() {
    ctx.fillStyle = "rgb(177,177,177)";
@@ -12,4 +13,4 @@ function GameLoop() {
    game.update();
    game.draw(ctx);
 }
-setInterval(GameLoop, 16);
+setInterval(GameLoop, 1000/FPS);
