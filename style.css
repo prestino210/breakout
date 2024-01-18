@@ -1,4 +1,79 @@
+/* Resetting some default styles */
+body, h1, ul {
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    margin: 0% auto;
-    overflow: hidden;
+    font-family: 'Arial', sans-serif; 
+    background-color: #303030; 
+    color: #ffffff; 
+    padding: 50px; 
+}
+
+h1 {
+    font-size: 2.5em; 
+    text-align: left; 
+    margin-bottom: 30px; 
+}
+
+ul {
+    list-style-type: none; 
+    padding: 0;
+}
+
+li {
+    margin-bottom: 0px; 
+    padding: 10px;
+    font-size: 30px;
+    
+}
+
+a {
+    text-decoration: none; 
+    color: #ffd900; 
+    transition: color 0.3s ease; 
+}
+
+li:hover {
+    background-color: #333333; 
+    padding: 8px 10px 8px 8px; 
+    border-radius: 10px; 
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 30px; 
+    }
+    
+    h1 {
+        font-size: 2em; 
+    }
+}
+
+#itch-link {
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 20px; 
+    color: #ffd900; 
+}
+
+#itch-link a {
+    text-decoration: underline;
+    color: #ffd900; 
+    transition: color 0.3s ease; 
+}
+
+#itch-link a:hover {
+    color: #A28A00; 
+}
+
+#gh-link {
+    text-decoration: underline;
+    color: #ffffff; 
+    transition: color 0.3s ease; 
+}
+
+#gh-link:hover {
+    color: #969696;
 }

@@ -48,6 +48,7 @@ export default class Ball {
                     }
                     
                     this.dy = -this.dy;
+                    
                 }
             });
 
@@ -55,6 +56,7 @@ export default class Ball {
 
             if(Utils.rect_circleCollision(pX, pY, pW, pH, this.x, this.y, this.rad)) { 
                 this.dy = -this.dy;
+                
             }
             
 
